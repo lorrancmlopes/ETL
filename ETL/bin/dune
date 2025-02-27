@@ -1,0 +1,5 @@
+;; Implicitly attached to "simple package"
+(executable
+ (public_name greeter) ;; Change this name
+ (name main)           ;; Name of the file e.g. main.ml
+ (libraries hello))    ;; Library to connect to
