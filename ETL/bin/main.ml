@@ -12,8 +12,8 @@ let () =
   let specs = [
     ("--status", Arg.String (fun s -> status := Some s), "Filtrar por status (complete, pending, cancelled)");
     ("--origin", Arg.String (fun s -> origin := Some s), "Filtrar por origem (P para físico, O para online)");
-    ("--input-orders", Arg.Set_string orders_file, "Arquivo CSV de entrada para ordens");
-    ("--input-items", Arg.Set_string order_items_file, "Arquivo CSV de entrada para itens");
+    ("--input-orders", Arg.Set_string orders_file, "Arquivo CSV de entrada para ordens ou URL (http://...)");
+    ("--input-items", Arg.Set_string order_items_file, "Arquivo CSV de entrada para itens ou URL (http://...)");
     ("--output", Arg.Set_string output_file, "Arquivo CSV de saída");
   ] in
   

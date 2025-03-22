@@ -1,4 +1,4 @@
 (library
  (name etl)
- (libraries csv)
+ (libraries csv curl)
  (public_name etl))
