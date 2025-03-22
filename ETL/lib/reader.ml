@@ -1,4 +1,3 @@
-(* Função para ler um arquivo CSV e retornar um array de strings *)
 let read_csv_file filename =
   try
     let channel = open_in filename in
@@ -15,6 +14,5 @@ let read_csv_file filename =
         filename (Printexc.to_string e);
       []
 
-(* Usando aplicação parcial para criar leitores específicos *)
 let read_orders = read_csv_file
 let read_order_items = read_csv_file
