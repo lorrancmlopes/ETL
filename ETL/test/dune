@@ -1,2 +1,2 @@
 (test
- (name test_ETL))
+ (name test_etl))

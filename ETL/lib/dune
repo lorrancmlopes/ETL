@@ -1,3 +1,4 @@
 (library
- (name hello)
- (public_name ETL.hello)) ;; Required to define in the simple namespace
+ (name etl)
+ (libraries csv)
+ (public_name etl))
