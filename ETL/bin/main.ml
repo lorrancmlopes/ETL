@@ -1,59 +1,103 @@
+open Arg
 open Etl
 
-(** Ponto de entrada principal do programa ETL *)
+(** CLI entry point for the ETL application.
+    This module parses command line arguments and calls the ETL processing function.
+*)
+
+(** Path to the orders CSV file *)
+let orders_file = ref ""
+
+(** Path to the order items CSV file *)
+let order_items_file = ref ""
+
+(** Path to the output CSV file *)
+let output_file = ref ""
+
+(** Optional path to period summary output file *)
+let period_output_file = ref None
+
+(** Optional status filter *)
+let status = ref None
+
+(** Optional origin filter *)
+let origin = ref None
+
+(** Optional database file path *)
+let db_file = ref None
+
+(** List of command line argument specifications *)
+let speclist = [
+  ("--input-orders", Set_string orders_file, "CSV file containing orders");
+  ("--input-items", Set_string order_items_file, "CSV file containing order items");
+  ("--output", Set_string output_file, "Output CSV file");
+  ("--period-output", String (fun s -> period_output_file := Some s), "Optional CSV file for period summary output");
+  ("--status", String (fun s -> status := Some s), "Filter by status (Complete, Pending, Cancelled)");
+  ("--origin", String (fun s -> origin := Some s), "Filter by origin (P or O)");
+  ("--db-file", String (fun s -> db_file := Some s), "Optional SQLite database file");
+]
+
+(** Usage message for the command line interface *)
+let usage_msg = "ETL - Order Processing\n\nUsage: etl [options]\n\nOptions:"
+
+(** Helper function to ensure output paths are in the data directory *)
+let ensure_data_dir path =
+  if String.length path > 0 && 
+     (path.[0] = '/' || path.[0] = '.' || 
+      (String.length path > 1 && path.[1] = ':') ||
+      String.contains path '/') then
+    path
+  else
+    "data/" ^ path
+
+(** Main entry point *)
 let () =
-  let usage = "etl [--status STATUS] [--origin ORIGIN] [--input-orders FILE] [--input-items FILE] [--output FILE] [--db-file FILE]" in
-
-  (* Valores padrão para os parâmetros *)
-  let orders_file = ref "./data/order.csv" in
-  let order_items_file = ref "./data/order_item.csv" in
-  let output_file = ref "./data/order_summary.csv" in
-  let db_file = ref None in  
-  let status = ref None in
-  let origin = ref None in
+  parse speclist (fun _ -> ()) usage_msg;
   
-  (* Especificação dos argumentos de linha de comando *)
-  let specs = [
-    ("--status", Arg.String (fun s -> status := Some s), "Filtrar por status (complete, pending, cancelled)");
-    ("--origin", Arg.String (fun s -> origin := Some s), "Filtrar por origem (P para físico, O para online)");
-    ("--input-orders", Arg.Set_string orders_file, "Arquivo CSV de entrada para ordens ou URL (http://...)");
-    ("--input-items", Arg.Set_string order_items_file, "Arquivo CSV de entrada para itens ou URL (http://...)");
-    ("--output", Arg.Set_string output_file, "Arquivo CSV de saída");
-    ("--db-file", Arg.String (fun s -> db_file := Some s), "Arquivo de banco de dados SQLite para salvar os dados (opcional)");
-  ] in
+  if !orders_file = "" then (
+    Printf.eprintf "Error: --input-orders is required\n";
+    exit 1
+  );
+  if !order_items_file = "" then (
+    Printf.eprintf "Error: --input-items is required\n";
+    exit 1
+  );
+  if !output_file = "" then (
+    Printf.eprintf "Error: --output is required\n";
+    exit 1
+  );
   
-  (* Parsear os argumentos de linha de comando *)
-  Arg.parse specs (fun _ -> ()) usage;
-
-  (* Exibir informações sobre o processamento que será realizado *)
-  Printf.printf "==== Configuração do ETL ====\n";
-  Printf.printf "Arquivo de ordens: %s\n" !orders_file;
-  Printf.printf "Arquivo de itens: %s\n" !order_items_file;
-  Printf.printf "Arquivo de saída: %s\n" !output_file;
+  (* Ensure output paths are in the data directory *)
+  output_file := ensure_data_dir !output_file;
+  period_output_file := Option.map ensure_data_dir !period_output_file;
+  db_file := Option.map ensure_data_dir !db_file;
   
-  (match !db_file with
-   | Some file -> Printf.printf "Banco de dados SQLite: %s\n" file
-   | None -> Printf.printf "Sem banco de dados SQLite\n");
-  
+  Printf.printf "\nConfiguration:\n";
+  Printf.printf "Orders file: %s\n" !orders_file;
+  Printf.printf "Order items file: %s\n" !order_items_file;
+  Printf.printf "Output file: %s\n" !output_file;
+  (match !period_output_file with
+   | Some file -> Printf.printf "Period output file: %s\n" file
+   | None -> ());
   (match !status with
-   | Some s -> Printf.printf "Filtrando por status: %s\n" s
-   | None -> Printf.printf "Sem filtro de status\n");
-   
+   | Some s -> Printf.printf "Status filter: %s\n" s
+   | None -> ());
   (match !origin with
-   | Some o -> Printf.printf "Filtrando por origem: %s\n" o
-   | None -> Printf.printf "Sem filtro de origem\n");
+   | Some o -> Printf.printf "Origin filter: %s\n" o
+   | None -> ());
+  (match !db_file with
+   | Some db -> Printf.printf "Database file: %s\n" db
+   | None -> ());
+  Printf.printf "\n";
   
-  Printf.printf "============================\n\n";
-  
-  (* Executar o processo ETL *)
   let processed_count = run_etl 
     ~orders_file:!orders_file 
     ~order_items_file:!order_items_file 
     ~output_file:!output_file 
+    ?period_output_file:!period_output_file
     ?status:!status 
     ?origin:!origin 
     ?db_file:!db_file
     () in
   
-  (* Exibir resultado do processamento *)
-  Printf.printf "\nProcessamento concluído. Foram processados %d pedidos.\n" processed_count
+  Printf.printf "Processed %d summaries\n" processed_count

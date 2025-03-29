@@ -21,7 +21,8 @@
  (description "A longer description")
  (depends ocaml
    dune 
-   csv curl)
+   csv curl
+   (ounit2 :with-test))
  (tags
   ("add topics" "to describe" "your project"))
 

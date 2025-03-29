@@ -1,2 +1,7 @@
-(test
- (name test_etl))
+(tests
+ (names test_etl test_transform test_filter test_helper)
+ (libraries etl ounit2))
+
+(env
+ (dev
+  (flags (:standard -warn-error -A))))

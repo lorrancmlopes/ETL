@@ -1,3 +1,7 @@
+(** Reads a CSV file from disk
+    @param filename Path to the CSV file
+    @return List of CSV rows
+*)
 let read_csv_file filename =
   try
     let channel = open_in filename in
@@ -7,15 +11,17 @@ let read_csv_file filename =
     rows
   with
   | Sys_error msg -> 
-      Printf.eprintf "Erro ao abrir arquivo %s: %s\n" filename msg;
+      Printf.eprintf "Error opening file %s: %s\n" filename msg;
       []
   | e -> 
-      Printf.eprintf "Erro ao processar arquivo %s: %s\n" 
+      Printf.eprintf "Error processing file %s: %s\n" 
         filename (Printexc.to_string e);
       []
 
-
-
+(** Downloads content from a URL
+    @param url The URL to download from
+    @return Some content if successful, None otherwise
+*)
 let download_url url =
   let result = Buffer.create 16384 in
   let curl = Curl.init () in
@@ -30,24 +36,36 @@ let download_url url =
   if code >= 200 && code < 300 then
     Some (Buffer.contents result)
   else begin
-    Printf.eprintf "Erro ao baixar URL %s: código HTTP %d\n" url code;
+    Printf.eprintf "Error downloading URL %s: HTTP code %d\n" url code;
     None
   end
 
+(** Parses CSV from a string
+    @param str String containing CSV data
+    @return List of CSV rows
+*)
 let read_csv_from_string str =
   try
     let input = Csv.of_string ~has_header:true str in
     Csv.input_all input
   with e ->
-    Printf.eprintf "Erro ao processar CSV da string: %s\n" 
+    Printf.eprintf "Error processing CSV from string: %s\n" 
       (Printexc.to_string e);
     []
 
+(** Reads CSV data from a URL
+    @param url URL pointing to CSV data
+    @return List of CSV rows
+*)
 let read_csv_from_url url =
   match download_url url with
   | None -> []
   | Some content -> read_csv_from_string content
 
+(** Reads CSV from either a file path or a URL
+    @param source File path or URL to read from
+    @return List of CSV rows
+*)
 let read_csv_file_or_url source =
   if String.length source >= 7 && 
       (String.sub source 0 7 = "http://" || 
@@ -56,5 +74,14 @@ let read_csv_file_or_url source =
   else
     read_csv_file source
 
+(** Reads orders from a file or URL
+    @param source File path or URL containing order data
+    @return List of CSV rows representing orders
+*)
 let read_orders = read_csv_file_or_url
+
+(** Reads order items from a file or URL
+    @param source File path or URL containing order item data
+    @return List of CSV rows representing order items
+*)
 let read_order_items = read_csv_file_or_url
