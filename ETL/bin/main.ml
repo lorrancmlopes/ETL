@@ -50,9 +50,10 @@ let () =
     ~orders_file:!orders_file 
     ~order_items_file:!order_items_file 
     ~output_file:!output_file 
-    ~db_file:!db_file  
-    ~status:!status 
-    ~origin:!origin in
+    ?status:!status 
+    ?origin:!origin 
+    ?db_file:!db_file
+    () in
   
   (* Exibir resultado do processamento *)
   Printf.printf "\nProcessamento concluído. Foram processados %d pedidos.\n" processed_count
