@@ -11,13 +11,13 @@ This ETL (Extract, Transform, Load) project processes order data from two source
 ## Table of Contents 📑
 
 - [Requirements Checklist](#requirements-checklist-)
-- [Installation](#installation-)
+- [Installation](#installation-%EF%B8%8F)
 - [Usage Examples](#usage-examples-)
 - [Querying the SQLite Database](#querying-the-sqlite-database-)
 - [Running Tests](#running-tests-)
 - [Project Structure](#project-structure-)
 - [External Libraries](#external-libraries-)
-- [Architecture](#architecture-)
+- [Architecture](#architecture-%EF%B8%8F)
 
 ## Requirements Checklist ✅
 
