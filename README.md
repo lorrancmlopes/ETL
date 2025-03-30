@@ -262,6 +262,6 @@ The separation between pure and impure functions improves testability and mainta
 
 <div align="center">
     <br>
-    @2025, Insper. 10° Semester, Computer Engineering.<br>
+    @2025, Insper. 10th Semester, Computer Engineering.<br>
     Functional Programming Discipline
 </div>
