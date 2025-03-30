@@ -1,11 +1,25 @@
-
-# ETL Project
+# ETL Project 🔄
 
 ## Overview
 
+<div align="center">
+  <img src="https://www.databricks.com/sites/default/files/inline-images/etl-process-image.png" alt="ETL Process">
+</div>
+
 This ETL (Extract, Transform, Load) project processes order data from two sources, applies transformations, filters, and generates analytical summaries. The project is implemented in OCaml using functional programming principles with a clear separation between pure and impure functions.
 
-## Requirements Checklist
+## Table of Contents 📑
+
+- [Requirements Checklist](#requirements-checklist-)
+- [Installation](#installation-)
+- [Usage Examples](#usage-examples-)
+- [Querying the SQLite Database](#querying-the-sqlite-database-)
+- [Running Tests](#running-tests-)
+- [Project Structure](#project-structure-)
+- [External Libraries](#external-libraries-)
+- [Architecture](#architecture-)
+
+## Requirements Checklist ✅
 
 ### Mandatory Requirements
 
@@ -29,7 +43,7 @@ This ETL (Extract, Transform, Load) project processes order data from two source
 
 **All 7 optional requirements completed** ✓
 
-## Installation
+## Installation 🛠️
 
 ### Prerequisites
 
@@ -64,7 +78,7 @@ This project relies on the following OCaml libraries:
    dune build
    ```
 
-## Usage Examples
+## Usage Examples 📋
 
 ### Basic Usage
 
@@ -130,7 +144,7 @@ Use all features together:
 dune exec -- etl --input-orders https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order.csv --input-items https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order_item.csv --output data/order_summary.csv --period-output data/period_summary.csv --status Complete --origin O --db-file data/order_summary.db
 ```
 
-## Querying the SQLite Database
+## Querying the SQLite Database 🔍
 
 After processing data and saving it to a SQLite database, you can query it using the `sqlite3` command-line tool:
 
@@ -157,7 +171,7 @@ SELECT AVG(total_amount) FROM order_summaries;
 .quit
 ```
 
-## Running Tests
+## Running Tests 🧪
 
 Run all tests:
 
@@ -174,7 +188,7 @@ dune exec -- _build/default/test/test_transform.exe
 dune exec -- _build/default/test/test_etl.exe
 ```
 
-## Project Structure
+## Project Structure 📁
 
 ```
 ETL/
@@ -211,7 +225,7 @@ ETL/
 │   └── etl.opam       # Package configuration
 ```
 
-## External Libraries
+## External Libraries 📚
 
 The project uses the following external libraries:
 
@@ -231,7 +245,7 @@ The project uses the following external libraries:
   - [OPAM Package](https://opam.ocaml.org/packages/ounit2/)
   - [Documentation](https://ocaml.org/p/ounit2/latest/doc/index.html)
 
-## Architecture
+## Architecture 🏗️
 
 The project follows a functional approach with a clear separation of concerns:
 
@@ -245,3 +259,9 @@ The project follows a functional approach with a clear separation of concerns:
 8. **ETL Module**: Orchestrates the entire ETL process
 
 The separation between pure and impure functions improves testability and maintainability.
+
+<div align="center">
+    <br>
+    @2025, Insper. 10° Semester, Computer Engineering.<br>
+    Functional Programming Discipline
+</div>
