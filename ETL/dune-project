@@ -1,6 +1,6 @@
 (lang dune 3.17)
 
-(name etl)
+(name ETL)
 
 (generate_opam_files true)
 
@@ -16,12 +16,13 @@
 (documentation https://github.com/lorrancmlopes/ETL)
 
 (package
- (name etl)
+ (name ETL)
  (synopsis "ETL process for orders and order items")
  (description "ETL process for orders and order items")
  (depends ocaml
    dune 
    csv curl
+   sqlite3
    (ounit2 :with-test))
  (tags
   ("ETL" "orders" "order items"))
