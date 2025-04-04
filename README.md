@@ -76,6 +76,7 @@ This project relies on the following OCaml libraries:
 
 3. Build the project:
    ```
+   eval $(opam env)
    dune build
    ```
 
