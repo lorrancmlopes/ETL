@@ -88,7 +88,7 @@ This project relies on the following OCaml libraries:
 Process orders and order items from local files:
 
 ```bash
-dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv --output data/order_summary.csv
+dune exec -- ETL --input-orders data/order.csv --input-items data/order_item.csv --output data/order_summary.csv
 ```
 
 ### Reading Data from URLs
@@ -96,7 +96,7 @@ dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv
 Process orders and order items from remote URLs:
 
 ```bash
-dune exec -- etl --input-orders https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order.csv --input-items https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order_item.csv --output data/order_summary.csv
+dune exec -- ETL --input-orders https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order.csv --input-items https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order_item.csv --output data/order_summary.csv
 ```
 
 ### Filtering by Status
@@ -104,7 +104,7 @@ dune exec -- etl --input-orders https://raw.githubusercontent.com/lorrancmlopes/
 Process only orders with "Complete" status:
 
 ```bash
-dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv --output data/complete_orders.csv --status Complete
+dune exec -- ETL --input-orders data/order.csv --input-items data/order_item.csv --output data/complete_orders.csv --status Complete
 ```
 
 ### Filtering by Origin
@@ -112,7 +112,7 @@ dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv
 Process only orders with "P" (physical) origin:
 
 ```bash
-dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv --output data/physical_orders.csv --origin P
+dune exec -- ETL --input-orders data/order.csv --input-items data/order_item.csv --output data/physical_orders.csv --origin P
 ```
 
 ### Combined Filtering
@@ -120,7 +120,7 @@ dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv
 Process only orders with "Complete" status and "P" (physical) origin:
 
 ```bash
-dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv --output data/complete_physical_orders.csv --status Complete --origin P
+dune exec -- ETL --input-orders data/order.csv --input-items data/order_item.csv --output data/complete_physical_orders.csv --status Complete --origin P
 ```
 
 ### Generating Period Summaries
@@ -128,7 +128,7 @@ dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv
 Generate period-based (year/month) summary statistics:
 
 ```bash
-dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv --output data/order_summary.csv --period-output data/period_summary.csv
+dune exec -- ETL --input-orders data/order.csv --input-items data/order_item.csv --output data/order_summary.csv --period-output data/period_summary.csv
 ```
 
 ### Saving to SQLite Database
@@ -136,7 +136,7 @@ dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv
 Save results to a SQLite database:
 
 ```bash
-dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv --output data/order_summary.csv --db-file data/order_summary.db
+dune exec -- ETL --input-orders data/order.csv --input-items data/order_item.csv --output data/order_summary.csv --db-file data/order_summary.db
 ```
 
 ### All Features Combined
@@ -144,7 +144,7 @@ dune exec -- etl --input-orders data/order.csv --input-items data/order_item.csv
 Use all features together:
 
 ```bash
-dune exec -- etl --input-orders https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order.csv --input-items https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order_item.csv --output data/order_summary.csv --period-output data/period_summary.csv --status Complete --origin O --db-file data/order_summary.db
+dune exec -- ETL --input-orders https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order.csv --input-items https://raw.githubusercontent.com/lorrancmlopes/ETL/refs/heads/main/ETL/data/order_item.csv --output data/order_summary.csv --period-output data/period_summary.csv --status Complete --origin O --db-file data/order_summary.db
 ```
 
 ## Querying the SQLite Database 🔍
