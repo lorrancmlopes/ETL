@@ -65,11 +65,12 @@ This project relies on the following OCaml libraries:
 1. Clone the repository:
    ```
    git clone <repository-url>
-   cd ETL
    ```
+2. Reopen using Container
 
 2. Install dependencies using OPAM:
    ```
+   cd ETL
    opam install -y dune utop ocaml-lsp-server
    opam install . --deps-only --with-test
    ```
