@@ -13,7 +13,7 @@ depends: [
   "ocaml"
   "dune" {>= "3.17"}
   "csv"
-  "curl"
+  "ocurl"
   "sqlite3"
   "ounit2" {with-test}
   "odoc" {with-doc}

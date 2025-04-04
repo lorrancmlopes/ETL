@@ -21,7 +21,7 @@
  (description "ETL process for orders and order items")
  (depends ocaml
    dune 
-   csv curl
+   csv ocurl
    sqlite3
    (ounit2 :with-test))
  (tags
