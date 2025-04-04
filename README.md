@@ -70,7 +70,8 @@ This project relies on the following OCaml libraries:
 
 2. Install dependencies using OPAM:
    ```
-   opam install . --deps-only
+   opam install -y dune utop ocaml-lsp-server
+   opam install . --deps-only --with-test
    ```
 
 3. Build the project:
@@ -161,8 +162,8 @@ sqlite3 data/order_summary.db
 # Query all order summaries
 SELECT * FROM order_summaries;
 
-# Query order summaries with total amount greater than 100
-SELECT * FROM order_summaries WHERE total_amount > 100;
+# Query order summaries with total amount greater than 2000
+SELECT * FROM order_summaries WHERE total_amount > 2000;
 
 # Calculate average total_amount
 SELECT AVG(total_amount) FROM order_summaries;
