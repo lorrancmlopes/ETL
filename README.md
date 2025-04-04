@@ -64,7 +64,7 @@ This project relies on the following OCaml libraries:
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
+   git clone https://github.com/lorrancmlopes/ETL.git
    ```
 2. Reopen using Container
 
