@@ -188,7 +188,7 @@ Run specific test files:
 dune exec -- _build/default/test/test_helper.exe
 dune exec -- _build/default/test/test_filter.exe
 dune exec -- _build/default/test/test_transform.exe
-dune exec -- _build/default/test/test_etl.exe
+dune exec -- _build/default/test/test_ETL.exe
 ```
 
 ## Project Structure 📁
